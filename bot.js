@@ -1,29 +1,23 @@
 const TelegramBot = require('node-telegram-bot-api');
+const fs = require('fs');
+const genPoster = require('./genposter');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = 'YOUR_TELEGRAM_BOT_TOKEN';
+const token = '5590417421:AAHzag95GOTfB3E7EmLzL8G9BtfizsjHMbg';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
-// Matches "/echo [whatever]"
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  // 'msg' is the received Message from Telegram
-  // 'match' is the result of executing the regexp above on the text content
-  // of the message
-
+// Matches "/sana [2-IYUN] /vaqt [SHANBA, 21:00]"
+bot.onText(/\/sana (.+) \/vaqt (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever"
+  var [_, row_1, row_2] = match;
+  
+  if (row_1.length > 15) row_1 = row_1.substring(0, 15);
+  if (row_2.length > 20) row_2 = row_2.substring(0, 20);
 
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, resp);
-});
-
-// Listen for any kind of message. There are different kinds of
-// messages.
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'Received your message');
+  (async () => {
+    await genPoster(row_1, row_2);
+    bot.sendPhoto(chatId, fs.createReadStream('./media/temp/arab-tili.jpg'));
+  })();
 });

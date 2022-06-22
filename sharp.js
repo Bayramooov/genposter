@@ -1,5 +1,10 @@
 const sharp = require("sharp");
 
+const yellow = '#d9cf34';
+const dark_green = '#2a776c';
+const imagePath = './arab-tili.jpg';
+const newImagePath = './temp/arab-tili.jpg';
+
 async function getMetadata() {
   try {
     const metadata = await sharp("test.jpg").metadata();
@@ -79,16 +84,37 @@ async function textOnImage() {
     const height = 483;
     const text = "HELLO WORLD";
 
+    // const svgImage = `
+    // <svg width="${width}" height="${height}">
+    //   <style>
+    //     .title {
+    //       fill: yellow;
+    //       font-size: 100px;
+    //       font-weight: bold;
+    //     }
+    //   </style>
+    //   <text x="50%" y="50%" font-family="Sans Serif" text-anchor="middle" class="title">${text}</text>
+    // </svg>
+    // `;
+
     const svgImage = `
-    <svg width="${width}" height="${height}">
+    <svg width="1080" height="130">
       <style>
-        .title {
-          fill: yellow;
-          font-size: 100px;
+        .rect {
+          fill: #d9cf34;
+        }
+        .text {
+          fill: #2a776c;
+          font-size: 50px;
           font-weight: bold;
+          font-family: Sans Serif;
         }
       </style>
-      <text x="50%" y="50%" font-family="Sans Serif" text-anchor="middle" class="title">${text}</text>
+      <g>
+        <rect class="rect" rx="15" ry="15" x="340" y="0" width="400" height="130" fill="#d9cf34"></rect>
+        <text class="text" x="50%" y="50" text-anchor="middle" font-family="serif">2-iyul, shanba</text>
+        <text class="text" x="50%" y="110" text-anchor="middle">21:00</text>
+      </g>
     </svg>
     `;
     const svgBuffer = Buffer.from(svgImage);
@@ -96,8 +122,8 @@ async function textOnImage() {
       .composite([
         {
           input: svgBuffer,
-          top: 100,
-          left: 100,
+          top: 730,
+          left: 0,
         }
       ])
       .toFile("test-text.jpg");
