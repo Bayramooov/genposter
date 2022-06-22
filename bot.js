@@ -10,7 +10,7 @@ const bot = new TelegramBot(token, {polling: true});
 
 // Matches "/start"
 bot.onText(/\/start/, (msg, match) => {
-  bot.sendMessage(msg.chat.id, 'Assalomu Alaykum\n\nShu ko\'rinishda buyruq jo\'natshingiz mumkin:');
+  bot.sendMessage(msg.chat.id, 'Assalomu Alaykum\n\nShu ko\'rinishda buyruq jo\'natishingiz mumkin:');
   setTimeout(() => {
     bot.sendMessage(msg.chat.id, '/sana 16-noyabr /vaqt chorshanba, 07:00');
   }, 100);
