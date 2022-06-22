@@ -3,10 +3,18 @@ const fs = require('fs');
 const genPoster = require('./genposter');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = '5590417421:AAHzag95GOTfB3E7EmLzL8G9BtfizsjHMbg';
+const token = '5572244027:AAF_90MsLTbJIXheAiabiYCTbMchI4mkbl0';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
+
+// Matches "/start"
+bot.onText(/\/start/, (msg, match) => {
+  bot.sendMessage(msg.chat.id, 'Assalomu Alaykum\n\nShu ko\'rinishda buyruq jo\'natshingiz mumkin:');
+  setTimeout(() => {
+    bot.sendMessage(msg.chat.id, '/sana 16-noyabr /vaqt chorshanba, 07:00');
+  }, 100);
+});
 
 // Matches "/sana [2-IYUN] /vaqt [SHANBA, 21:00]"
 bot.onText(/\/sana (.+) \/vaqt (.+)/, (msg, match) => {
