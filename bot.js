@@ -3,7 +3,7 @@ const fs = require('fs');
 const genPoster = require('./genposter');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = '5572244027:AAF_90MsLTbJIXheAiabiYCTbMchI4mkbl0';
+const token = '5572244027:AAEFGCQyzid1tVWLl5uL9jvEfh3_rywvn0U';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
